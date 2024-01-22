@@ -1,5 +1,9 @@
 <template>
-  Hello World
+  <h1>Genshin</h1>
+  <genshin-api />
 </template>
 
-<script> export default {}</script>
+<style></style>
+<script>
+export default {}
+</script>

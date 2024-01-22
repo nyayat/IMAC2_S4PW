@@ -1,6 +1,13 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
+import GenshinAPI from '@/components/GenshinAPI.vue'
 
-createApp(App).mount('#app')
+
+const app = createApp(App)
+app.component('genshin-api', GenshinAPI)
+app.mount('#app')
+
+
+

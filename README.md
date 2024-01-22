@@ -1,4 +1,4 @@
-# Genshin_PW
+# S4_Projet Narai
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -44,4 +44,4 @@ npm run build
 ```sh
 npm run lint
 ```
-# IMAC2_S4PW_Genshin
+
