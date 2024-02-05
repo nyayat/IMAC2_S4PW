@@ -13,6 +13,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "node-sass": "^9.0.0",
+    "sass": "^1.70.0",
+    "unofficial-jisho-api": "^2.3.4",
     "vue": "^3.3.11"
   },
   "devDependencies": {

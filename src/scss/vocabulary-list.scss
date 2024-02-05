@@ -1,0 +1,46 @@
+$margin-card: 10px;
+$margin-card: 15px;
+$size-font: $margin-card;
+
+.vocabulary {
+  &-list {
+    &,
+    & > * {
+      font-size: 16px;
+    }
+
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: red;
+    width: 90lvw;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-furigana {
+    color: transparent;
+    &::after {
+      content: '*';
+      color: transparent;
+    }
+  }
+
+  &-voc {
+    background-color: white;
+    border: lightgray 1px solid;
+    padding: 1px;
+    margin: 10px;
+    padding-bottom: calc($size-font + $margin-card);
+    width: 25lvw;
+    text-align: center;
+
+    &:hover {
+      .vocabulary-furigana {
+        color: red;
+        text-align: center;
+      }
+    }
+  }
+}
