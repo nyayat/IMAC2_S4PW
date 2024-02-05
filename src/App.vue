@@ -1,10 +1,9 @@
 <template>
-  <div><h1>Narai</h1></div>
-  <br />
+  <navBar />
   <vocab-api />
 </template>
 
 <style></style>
-<script>
+<script lang="ts">
 export default {}
 </script>

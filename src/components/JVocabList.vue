@@ -8,7 +8,7 @@ import * as Data from '@/ts/data.ts'
     <div v-for="item in JVocab.listVocab" :key="item.id">
       <div class="vocabulary-voc">
         <div class="vocabulary-furigana">{{ item.furigana }}</div>
-        <div @click="Data.redirectPage(item.word)">{{ item.word }}</div>
+        <div @click="Data.redirectPage('word', item.word)">{{ item.word }}</div>
       </div>
     </div>
   </div>

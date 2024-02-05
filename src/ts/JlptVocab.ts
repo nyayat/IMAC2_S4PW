@@ -1,8 +1,10 @@
+import * as Data from '@/ts/data'
+
 const url_vocab = 'https://jlpt-vocab-api.vercel.app/api/words'
 
 let listVocab
 
-await searchLevel(5)
+let lvl
 
 function sortJ(a: { furigana: string; word: string }, b: { furigana: string; word: string }) {
   const a_tmp = a.furigana == '' ? a.word : a.furigana
@@ -23,6 +25,7 @@ async function search(word: string) {
 async function searchLevel(level: number) {
   const url_level = url_vocab + '/all?level=' + level
   console.log(url_level)
+  console.log('lvl : ' + lvl)
 
   const response = await fetch(url_level)
   const json = await response.json()
@@ -47,4 +50,20 @@ async function res(url: string) {
   return json
 }
 
-export { search, searchLevel, searchRandom, listVocab }
+window.onload = function () {
+  const page_param = Data.slashParameters()
+  if (page_param[0] == '') console.log('vide')
+  else if (page_param[0] == 'level') {
+    lvl = page_param[1][1]
+  } else if (page_param[0] == 'word') console.log('word')
+
+  /*
+  page vocab : word/le_mot
+  liste vocab : level/N1
+  */
+}
+
+console.log('lvl' + lvl)
+await searchLevel(lvl)
+
+export { search, searchLevel, searchRandom, listVocab, lvl }

@@ -13,7 +13,7 @@ $size-font: $margin-card;
     display: flex;
     flex-wrap: wrap;
     background-color: red;
-    width: 90lvw;
+    width: 100lvw;
 
     align-items: center;
     justify-content: center;
@@ -34,6 +34,8 @@ $size-font: $margin-card;
     margin: 10px;
     padding-bottom: calc($size-font + $margin-card);
     width: 25lvw;
+    max-width: 400px;
+    min-width: 300px;
     text-align: center;
 
     &:hover {

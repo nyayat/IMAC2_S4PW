@@ -1,3 +1,5 @@
+import * as JVocab from '@/ts/JlptVocab'
+
 function slashParameters() {
   const page = window.location.pathname
   console.log('page')
@@ -34,17 +36,16 @@ async function getData() {
   console.log('------------')
 }*/
 
-function redirectPage(option: string) {
-  const page = document.URL
-  console.log(page + option)
-  location.replace(page + option)
+function redirectPage(menu: string, option: string) {
+  const page = window.location.origin
+  console.log(page + '/' + menu + '/' + option)
+  location.replace(page + '/' + menu + '/' + option)
 }
-window.onload = function () {
-  alert("let's go!")
-}
+
 //await getData()
-export { redirectPage }
+
+export { redirectPage, slashParameters }
 
 /*
-https://jlpt-vocab-api.vercel.app/, https://github.com/mistval/unofficial-jisho-api 
+https://jlpt-vocab-api.vercel.app/, https://github.com/mistval/unofficial-jisho-api
 */
