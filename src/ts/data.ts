@@ -1,4 +1,5 @@
 import * as JVocab from '@/ts/JlptVocab'
+let lvl = 0
 
 function slashParameters() {
   const page = window.location.pathname
@@ -8,43 +9,34 @@ function slashParameters() {
   return page.split('/').slice(1)
 }
 
-/*
-
-
-*/
-
-/*
-function constUrl(menu) {
-  let url = 'https://genshin.jmp.blue'
-  for (const el in menu) {
-    url += '/' + el
-  }
-  return url
+async function changePage() {
+  const page_param = slashParameters()
+  if (page_param[0] == '') console.log('vide')
+  else if (page_param[0] == 'level') {
+    lvl = Number(page_param[1][1])
+  } else if (page_param[0] == 'word') console.log('word')
 }
-*/
 
-/*
-async function getData() {
-  const menu = slashParameters()
-  //const url = constUrl(menu)
-  console.log('----hey----')
-  console.log('https://genshin.jmp.blue' + window.location.pathname)
-  const res = await fetch('https://genshin.jmp.blue' + window.location.pathname)
-  const finalRes = await res.json()
+/* function init() {
+  changePage()
+}
 
-  console.log('----here----')
-  console.log('------------')
-}*/
+window.onload = init() */
 
-function redirectPage(menu: string, option: string) {
+async function redirectPage(menu: string, option: string, numPage: number = 1) {
   const page = window.location.origin
-  console.log(page + '/' + menu + '/' + option)
-  location.replace(page + '/' + menu + '/' + option)
+  console.log(page + '/' + menu + '/' + option + '/' + numPage)
+  //location.replace(page + '/' + menu + '/' + option)
+  const stateObj = { foo: 'bar' }
+  history.pushState(stateObj, '', page + '/' + menu + '/' + option + '/' + numPage)
+  changePage()
+
+  //location.replace(page + '/' + menu + '/' + option)
 }
 
 //await getData()
 
-export { redirectPage, slashParameters }
+export { redirectPage, slashParameters, lvl, changePage }
 
 /*
 https://jlpt-vocab-api.vercel.app/, https://github.com/mistval/unofficial-jisho-api
