@@ -23,8 +23,9 @@ async function changePage() {
 
 window.onload = init() */
 
-async function redirectPage(menu: string, option: string, numPage: number = 1) {
+async function redirectPage(menu: string, option: string, numPage: number) {
   const page = window.location.origin
+  console.log('numpage: ' + numPage)
   console.log(page + '/' + menu + '/' + option + '/' + numPage)
   //location.replace(page + '/' + menu + '/' + option)
   const stateObj = { foo: 'bar' }

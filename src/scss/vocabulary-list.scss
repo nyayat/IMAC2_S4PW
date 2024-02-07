@@ -20,7 +20,6 @@ $size-font: $margin-card;
   }
 
   &-furigana {
-    color: transparent;
     &::after {
       content: '*';
       color: transparent;
@@ -45,4 +44,15 @@ $size-font: $margin-card;
       }
     }
   }
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  @extend .pagination;
 }
