@@ -6,6 +6,9 @@ import * as _data from '@/ts/data'
   <div id="nav-bar">
     <ul>
       <li style="border-left: 1cm"><span>Narai</span></li>
+      <li style="border-left: 1cm"><span>Vocabulaire</span></li>
+      <li style="border-left: 1cm"><span>Mot au hasard</span></li>
+      <li style="border-left: 1cm"><span>Exercice</span></li>
       <!-- 
       <li><a @click="_data.redirectPage('level', 'N5')">N5</a></li>
       <li><a @click="_data.redirectPage('level', 'N4')">N4</a></li>

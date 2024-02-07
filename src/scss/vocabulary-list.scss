@@ -20,6 +20,8 @@ $size-font: $margin-card;
   }
 
   &-furigana {
+    //TODO: Centrer les mots sans furigana
+    //padding-bottom: 5px;
     &::after {
       content: '*';
       color: transparent;
@@ -32,6 +34,7 @@ $size-font: $margin-card;
     padding: 1px;
     margin: 10px;
     padding-bottom: calc($size-font + $margin-card);
+    padding-top: calc($size-font + $margin-card);
     width: 25lvw;
     max-width: 400px;
     min-width: 300px;
