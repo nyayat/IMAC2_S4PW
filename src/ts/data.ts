@@ -15,13 +15,8 @@ async function changePage() {
   else if (page_param[0] == 'level') {
     lvl = Number(page_param[1][1])
   } else if (page_param[0] == 'word') console.log('word')
+  else lvl = 0
 }
-
-/* function init() {
-  changePage()
-}
-
-window.onload = init() */
 
 async function redirectPage(menu: string, option: string, numPage: number) {
   const page = window.location.origin
@@ -31,11 +26,7 @@ async function redirectPage(menu: string, option: string, numPage: number) {
   const stateObj = { foo: 'bar' }
   history.pushState(stateObj, '', page + '/' + menu + '/' + option + '/' + numPage)
   changePage()
-
-  //location.replace(page + '/' + menu + '/' + option)
 }
-
-//await getData()
 
 export { redirectPage, slashParameters, lvl, changePage }
 

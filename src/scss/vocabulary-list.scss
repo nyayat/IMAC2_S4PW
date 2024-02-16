@@ -59,3 +59,44 @@ $size-font: $margin-card;
 .search {
   @extend .pagination;
 }
+
+datalist option {
+  .invisible {
+    /*
+    display: none;
+    font-size: 0px;
+    color: transparent;
+    visibility: hidden;
+    */
+    color: transparent;
+  }
+}
+input[autocomplete] + datalist[id],
+input[autocomplete]:not(:focus) + datalist[id] {
+  display: none !important;
+  max-width: inherit;
+}
+input[autocomplete]:focus + datalist[id] {
+  display: block !important;
+}
+
+/****/
+input[name='vocabSearch'] {
+  border: 2px solid orange;
+  border-radius: 10px 10px 10px 10px;
+  font-size: 18px;
+  padding: 5px;
+  height: 35px;
+  width: 350px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.option {
+  width: 100%;
+}

@@ -36,6 +36,7 @@ async function allVocabulary() {
   const response = await fetch(url_level)
   const json = await response.json()
   _vocab = json.sort(sortJ)
+  _vocab.shift()
   console.log('vocab : ')
   console.log(_vocab)
   return _vocab
@@ -58,5 +59,5 @@ async function res(url: string) {
 }
 
 //await searchLevel(Number(Data.lvl))
-
-export { search, searchLevel, searchRandom, _vocab, allVocabulary }
+const listVoc = await allVocabulary()
+export { search, searchLevel, searchRandom, _vocab, allVocabulary, listVoc }

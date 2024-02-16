@@ -1,11 +1,10 @@
 <script setup>
-import * as JVocab from '@/ts/JlptVocab.ts'
+import * as _jvocab from '@/ts/JlptVocab.ts'
 import * as _data from '@/ts/data.ts'
-import { ref } from 'vue'
 </script>
 
 <template>
-  <div :set="(_page = filteredListLvl(filteredList()))">
+  <div :set="(_page = filteredListLvl(_jvocab.listVoc))">
     <div class="menu">
       <ul>
         <li style="border-left: 1cm" @click="changeList('level', 'N0')"><span>All</span></li>
@@ -17,28 +16,54 @@ import { ref } from 'vue'
         <li><a @click="changeList('level', 'N1')">N1</a></li>
       </ul>
     </div>
-    <div class="search"><input type="text" v-model="search" placeholder="Search ..." /></div>
+    <div class="search">
+      <input
+        list="vocabSearch"
+        type="text"
+        v-model="search"
+        name="vocabSearch"
+        placeholder="Search a word..."
+      />
+
+      <datalist id="vocabSearch">
+        <div v-for="item in filteredListLvl(filteredList())" :key="item">
+          <option class="option" :value="item.word">
+            {{ item.word }}
+            <span v-if="item.furigana !== ''"> - </span> {{ item.furigana }}
+            <span class="invisible">{{ item.romaji }}</span>
+          </option>
+        </div>
+      </datalist>
+
+      <button @click="changeList('search', search)">Chercher</button>
+    </div>
 
     <div class="vocabulary-list">
       <div v-for="item in paginate(_page)" :key="item.id">
         <div class="vocabulary-voc">
+          <div id="level">N{{ item.level }}</div>
           <div class="vocabulary-furigana">{{ item.furigana }}</div>
           <div @click="changeList('word', item.word)">{{ item.word }}</div>
+          <div>{{ item.meaning }}</div>
         </div>
       </div>
     </div>
     <div class="pagination" :set="(_size = Math.ceil(_page.length / pageSize))">
-      <button @click="changeList('level', page_param[1])">«</button>
-      <button @click="changeList('level', page_param[1], parseInt(page_param[2]) - 1)">‹</button>
+      <button @click="changeList(page_param[0], page_param[1])">«</button>
+      <button @click="changeList(page_param[0], page_param[1], parseInt(page_param[2]) - 1)">
+        ‹
+      </button>
       <div :set="(_register = createRegisterArray())">
         <span v-for="item in _register" :key="item">
-          <button @click="changeList('level', page_param[1], parseInt(item))">
+          <button @click="changeList(page_param[0], page_param[1], parseInt(item))">
             {{ parseInt(item) }}
           </button>
         </span>
       </div>
-      <button @click="changeList('level', page_param[1], parseInt(page_param[2]) + 1)">›</button>
-      <button @click="changeList('level', page_param[1], _size)">»</button>
+      <button @click="changeList(page_param[0], page_param[1], parseInt(page_param[2]) + 1)">
+        ›
+      </button>
+      <button @click="changeList(page_param[0], page_param[1], _size)">»</button>
     </div>
   </div>
 </template>
@@ -49,11 +74,11 @@ export default {
   data() {
     return {
       lvl: 0,
-      vocabList: [],
       search: '',
       pageSize: 3 * 11,
       pageNow: 1,
-      page_param: _data.slashParameters()
+      page_param: _data.slashParameters(),
+      opt: ''
     }
   },
   methods: {
@@ -62,47 +87,39 @@ export default {
       if (this.page_param[0] == 'level') {
         console.log('param: ' + this.page_param)
         this.lvl = Number(this.page_param[1][1])
-        if (this.page_param.length > 2) this.pageNow = Number(this.page_param[2])
       }
-
+      if (this.page_param[0] == 'search') this.lvl = 0
+      if (this.page_param.length > 2) this.pageNow = Number(this.page_param[2])
       this.createRegisterArray()
     },
-    filteredList: function () {
-      /* _data.redirectPage('level', this.page_param[1], parseInt(this.page_param[2]))
-      this.pageConfig() */
-      //TODO: Changer l'url pour que le filtre marche totalement
-      return this.vocabList.filter((val) => {
-        console.log(val)
-        return (
-          val.furigana.includes(this.search) ||
-          val.word.includes(this.search) ||
-          val.romaji.includes(this.search)
-        )
+    filteredList: function (opt = this.search) {
+      return _jvocab.listVoc.filter((val) => {
+        return val.romaji.includes(opt) || val.furigana.includes(opt) || val.word.includes(opt)
       })
     },
     filteredListLvl: function (list) {
+      if (this.page_param[0] == 'search')
+        return this.filteredList(decodeURIComponent(this.page_param[1]))
       return list.filter((val) => {
         if (this.lvl == 0) return true
         return val.level == this.lvl
       })
     },
-    changeList: function (type, level, numPage = 1) {
+    changeList: function (type, option, numPage = 1) {
       numPage = numPage < 1 ? 1 : numPage
-
       numPage = numPage > this.sizeListFiltered() ? this.sizeListFiltered() : numPage
-      _data.redirectPage(type, level, numPage)
+      _data.redirectPage(type, option, numPage)
       this.pageConfig()
     },
     paginate: function (list) {
-      // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
       return list.slice((this.pageNow - 1) * this.pageSize, this.pageNow * this.pageSize)
     },
     sizeList: function () {
-      return this.vocabList.length
+      return _jvocab.listVoc.length
     },
 
     sizeListFiltered: function () {
-      return Math.ceil(this.filteredListLvl(this.filteredList()).length / this.pageSize)
+      return Math.ceil(this.filteredListLvl(_jvocab.listVoc).length / this.pageSize)
     },
 
     createRegisterArray: function () {
@@ -137,7 +154,6 @@ export default {
   async created() {
     console.log('debut created')
     this.pageConfig()
-    this.vocabList = await JVocab.allVocabulary()
     this.createRegisterArray()
     console.log('fin created')
   },
