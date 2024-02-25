@@ -16,38 +16,44 @@ import * as _data from '@/ts/data.ts'
         <li><a @click="changeList('level', 'N1')">N1</a></li>
       </ul>
     </div>
-    <div class="search">
-      <input
-        list="vocabSearch"
-        type="text"
-        v-model="search"
-        name="vocabSearch"
-        placeholder="Search a word..."
-      />
 
-      <datalist id="vocabSearch">
-        <div v-for="item in filteredListLvl(filteredList())" :key="item">
-          <option class="option" :value="item.word">
-            {{ item.word }}
-            <span v-if="item.furigana !== ''"> - </span> {{ item.furigana }}
-            <span class="invisible">{{ item.romaji }}</span>
-          </option>
-        </div>
-      </datalist>
-
-      <button @click="changeList('search', search)">Chercher</button>
-    </div>
+    <section class="search">
+      <div class="search">
+        <input type="text" v-model="search" name="vocabSearch" placeholder="Search a word..." />
+        <button class="search-button" @click="changeList('search', search)">Chercher</button>
+      </div>
+    </section>
 
     <div class="vocabulary-list">
       <div v-for="item in paginate(_page)" :key="item.id">
+        <!-- CARD TEST 
         <div class="vocabulary-voc">
-          <div id="level">N{{ item.level }}</div>
+          <div class="level">
+            <span id="level">N{{ item.level }}</span>
+          </div>
           <div class="vocabulary-furigana">{{ item.furigana }}</div>
           <div @click="changeList('word', item.word)">{{ item.word }}</div>
           <div>{{ item.meaning }}</div>
+        </div>-->
+        <!-- CARD TEST -->
+        <div class="card">
+          <div class="card_form">{{ item.word }}</div>
+          <div class="card_data">
+            <div class="data">
+              <div class="text">
+                <label class="text_m">{{ item.meaning }}</label>
+                <div class="cube text_s">
+                  <label class="side front">N{{ item.level }}</label>
+                </div>
+                <label class="text_d"> - {{ item.furigana }} </label>
+                <span title="Acceder a la lista (Temas)">Access</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="pagination" :set="(_size = Math.ceil(_page.length / pageSize))">
       <button @click="changeList(page_param[0], page_param[1])">«</button>
       <button @click="changeList(page_param[0], page_param[1], parseInt(page_param[2]) - 1)">
@@ -94,7 +100,12 @@ export default {
     },
     filteredList: function (opt = this.search) {
       return _jvocab.listVoc.filter((val) => {
-        return val.romaji.includes(opt) || val.furigana.includes(opt) || val.word.includes(opt)
+        return (
+          val.romaji.includes(opt) ||
+          val.furigana.includes(opt) ||
+          val.word.includes(opt) ||
+          val.meaning.includes(opt)
+        )
       })
     },
     filteredListLvl: function (list) {

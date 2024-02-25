@@ -2,6 +2,52 @@ $margin-card: 10px;
 $margin-card: 15px;
 $size-font: $margin-card;
 
+/* ---- COLOR ---- */
+
+$main-color: #d6c9f9;
+$main-color-darker: #a790e6;
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  @extend .pagination;
+  margin: 10px;
+  button {
+    color: white;
+    background-color: $main-color;
+    height: 32.5px;
+    font-style: bold;
+    padding: 10px;
+    border-radius: 0px;
+    border: #ccbdf4 1px solid;
+    border-left: none;
+  }
+  input {
+    padding-left: 20px;
+    height: 30px;
+    width: 30vw;
+    border: #ccbdf4 1px solid;
+    &:focus {
+      outline: none;
+      border: $main-color-darker 1px solid;
+      background: none;
+      box-shadow: none;
+      ~ button {
+        border: $main-color-darker 1px solid;
+        background-color: #ccbdf4;
+        border-left: none;
+      }
+    }
+  }
+}
+
+/* ------- CARD ------- */
+
 .vocabulary {
   &-list {
     &,
@@ -12,7 +58,7 @@ $size-font: $margin-card;
     color: black;
     display: flex;
     flex-wrap: wrap;
-    background-color: red;
+    //background-color: red;
     width: 100lvw;
 
     align-items: center;
@@ -31,13 +77,12 @@ $size-font: $margin-card;
   &-voc {
     background-color: white;
     border: lightgray 1px solid;
-    padding: 1px;
+    padding: 20px;
     margin: 10px;
     padding-bottom: calc($size-font + $margin-card);
-    padding-top: calc($size-font + $margin-card);
-    width: 25lvw;
-    max-width: 400px;
-    min-width: 300px;
+    padding-top: calc($size-font);
+    width: 300px;
+    height: 100px;
     text-align: center;
 
     &:hover {
@@ -48,55 +93,123 @@ $size-font: $margin-card;
     }
   }
 }
-
-.pagination {
+.level {
+  margin-left: 10px;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+#level {
+  border-radius: 100px;
+  padding: 4px 13px;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: $main-color;
 }
 
-.search {
-  @extend .pagination;
-}
+.card {
+  border: $main-color 1px solid;
+  position: relative;
+  width: 250px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  gap: 0.5rem;
+  height: max-content;
+  margin: 15px;
 
-datalist option {
-  .invisible {
-    /*
-    display: none;
-    font-size: 0px;
-    color: transparent;
-    visibility: hidden;
-    */
-    color: transparent;
+  .card_form {
+    color: $main-color-darker;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    position: relative;
+    min-width: 10em;
+    line-height: 2.5em;
+    border-radius: 4px;
+    background-color: rgba(223, 201, 250, 0.149);
+    transition: 0.2s ease-in-out;
+    border: $main-color 1px solid;
+    margin: 10px;
+    margin-bottom: 20px;
+    &:hover {
+      color: white;
+      background-color: $main-color;
+      border: $main-color-darker 1px solid;
+      ~ .card {
+        background-color: red;
+      }
+    }
   }
 }
-input[autocomplete] + datalist[id],
-input[autocomplete]:not(:focus) + datalist[id] {
-  display: none !important;
-  max-width: inherit;
-}
-input[autocomplete]:focus + datalist[id] {
-  display: block !important;
-}
 
-/****/
-input[name='vocabSearch'] {
-  border: 2px solid orange;
-  border-radius: 10px 10px 10px 10px;
-  font-size: 18px;
-  padding: 5px;
-  height: 35px;
-  width: 350px;
+.card_data {
+  color: $main-color-darker;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1em;
+  position: relative;
+  min-width: 10em;
+  border-radius: 4px;
+  background-color: rgba(223, 201, 250, 0.149);
+  transition: 0.2s ease-in-out;
+  border: $main-color 1px solid;
+  margin: 10px;
+  margin-bottom: 20px;
 }
-
-.input {
-  width: 100%;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
+.card_data span {
+  color: red;
+  margin-top: auto;
+  font-size: 0.9em;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
+.text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 0.5em;
+  color: red;
+}
+.text_m {
+  font-size: 0.9em;
 
-.option {
-  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 20px;
+}
+.text_s {
+  color: red;
+  font-size: 0.6em;
+}
+.text_d {
+  font-size: 0.7em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.cube {
+  width: max-content;
+  height: 10px;
+  transition: all 0.2s;
+  transform-style: preserve-3d;
+}
+.side {
+  width: max-content;
+  height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+}
+.top {
+  transform: rotateX(-90deg) translate3d(0, 0, 0em);
+}
+.front {
+  transform: translate3d(0, 0, 1em);
 }
